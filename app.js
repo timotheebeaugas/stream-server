@@ -1,7 +1,7 @@
 const express = require("express");
 const app = express();
+const bodyParser = require('body-parser');
 
-const root = require('./routes/root.js');
 const video = require('./routes/video.js');
 
 app.use((req, res, next) => {
@@ -11,12 +11,15 @@ app.use((req, res, next) => {
     next();
 });
 
-app.use('/', root);
+app.use(bodyParser.json({limit: '10mb', extended: true}))
+app.use(bodyParser.urlencoded({limit: '10mb', extended: true}))
+
 app.use('/video', video);
 
 module.exports = app;
 
+ 
 
 
 
-
+  

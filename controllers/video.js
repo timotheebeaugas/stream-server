@@ -1,3 +1,6 @@
+// in the imports above
+const fs = require("fs");
+
 module.exports = {
   default: (req, res, next) => {
     try {
@@ -8,14 +11,8 @@ module.exports = {
   },
   playOneVideo: (req, res, next) => {
     try {
-      // in the imports above
-      const fs = require("fs");
-
       // Ensure there is a range given for the video
       const range = req.headers.range;
-      if (!range) {
-        res.status(400).send("Requires Range header");
-      }
 
       // get video stats (about 61MB)
       const videoPath = "./data/lilies.mp4";
@@ -26,13 +23,13 @@ module.exports = {
       const CHUNK_SIZE = 10 ** 6; // 1MB
       const start = Number(range.replace(/\D/g, ""));
       const end = Math.min(start + CHUNK_SIZE, videoSize - 1);
-
+      
       // Create headers
       const contentLength = end - start + 1;
       const headers = {
         "Content-Range": `bytes ${start}-${end}/${videoSize}`,
         "Accept-Ranges": "bytes",
-        "Content-Length": contentLength,
+        "Content-Length": contentLength, 
         "Content-Type": "video/mp4",
       };
 
