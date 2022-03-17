@@ -2,21 +2,16 @@
 const fs = require("fs");
 
 module.exports = {
-  default: (req, res, next) => {
-    try {
-      res.status(500).send("Something broke!");
-    } catch (error) {
-      res.status(400).json({ error });
-    }
-  },
   playOneVideo: (req, res, next) => {
     try {
       // Ensure there is a range given for the video
       const range = req.headers.range;
 
       // get video stats (about 61MB)
-      const videoPath = "./data/lilies.mp4";
-      const videoSize = fs.statSync("./data/lilies.mp4").size;
+
+      const videoName = req.query.v;
+      const videoPath = `./data/videos/${videoName}.mp4`;
+      const videoSize = fs.statSync(`./data/videos/${videoName}.mp4`).size;
 
       // Parse Range
       // Example: "bytes=32324-"
@@ -26,11 +21,11 @@ module.exports = {
       
       // Create headers
       const contentLength = end - start + 1;
-      const headers = {
+      const headers = { 
         "Content-Range": `bytes ${start}-${end}/${videoSize}`,
         "Accept-Ranges": "bytes",
         "Content-Length": contentLength, 
-        "Content-Type": "video/mp4",
+        "Content-Type": "video/mp4", 
       };
 
       // HTTP Status 206 for Partial Content

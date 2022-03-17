@@ -13,7 +13,7 @@ module.exports = {
   },
   url: (req, res, next) => {
     try {
-      if (!/^\/\d/.test(req.url)) {
+      if (!/\d/.test(req.query.v)) {
         res.status(400).send("Wrong request");
       } else {
         next();
@@ -23,4 +23,3 @@ module.exports = {
     } 
   },
 }; 
-         

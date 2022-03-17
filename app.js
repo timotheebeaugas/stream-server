@@ -11,10 +11,9 @@ app.use((req, res, next) => {
     next();
 });
 
-app.use(bodyParser.json({limit: '10mb', extended: true}))
-app.use(bodyParser.urlencoded({limit: '10mb', extended: true}))
+app.use(bodyParser.json())
 
-app.use('/video', video);
+app.use('/watch', video);
 
 module.exports = app;
 
