@@ -4,7 +4,9 @@
   "description": "",
   "main": "app.js",
   "dependencies": {
+    "@ffmpeg-installer/ffmpeg": "^1.1.0",
     "express": "^4.17.3",
+    "fluent-ffmpeg": "^2.1.2",
     "nodemon": "^2.0.15"
   },
   "devDependencies": {},

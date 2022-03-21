@@ -1,17 +1,18 @@
 // in the imports above
 const fs = require("fs");
+const path = require('path');
 
 module.exports = {
-  playOneVideo: (req, res, next) => {
-    try {
+  list: (req, res, next) => {
+    try {/* 
       // Ensure there is a range given for the video
       const range = req.headers.range;
 
       // get video stats (about 61MB)
 
       const videoName = req.query.v;
-      const videoPath = `./data/videos/${videoName}.mp4`;
-      const videoSize = fs.statSync(`./data/videos/${videoName}.mp4`).size;
+      const videoPath = `./data/1080/${videoName}.mp4`;
+      const videoSize = fs.statSync(`./data/1080/${videoName}.mp4`).size;
 
       // Parse Range
       // Example: "bytes=32324-"
@@ -35,7 +36,23 @@ module.exports = {
       const videoStream = fs.createReadStream(videoPath, { start, end });
 
       // Stream the video chunk to the client
-      videoStream.pipe(res);
+      videoStream.pipe(res); */
+
+
+
+      const resolvedPath = path.resolve('./assets/1080/output.m3u8');
+      res.sendFile(resolvedPath);
+
+    } catch (error) {
+      res.status(400).json({ error });
+    }
+  },
+  segment: (req, res, next) => {
+    try {
+      const { segment } = req.params;
+      console.log(req.params)
+      const resolvedPath = path.resolve(`./assets/1080/segments/${segment}`);
+      res.sendFile(resolvedPath);
     } catch (error) {
       res.status(400).json({ error });
     }

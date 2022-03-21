@@ -13,7 +13,7 @@ app.use((req, res, next) => {
 
 app.use(bodyParser.json())
 
-app.use('/watch', video);
+app.use('/video', video);
 
 module.exports = app;
 
