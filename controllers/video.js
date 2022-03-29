@@ -40,7 +40,7 @@ module.exports = {
 
 
 
-      const resolvedPath = path.resolve('./assets/1080/output.m3u8');
+      const resolvedPath = path.resolve('./assets/video.m3u8');
       res.sendFile(resolvedPath);
 
     } catch (error) {
@@ -51,7 +51,17 @@ module.exports = {
     try {
       const { segment } = req.params;
       console.log(req.params)
-      const resolvedPath = path.resolve(`./assets/1080/segments/${segment}`);
+      const resolvedPath = path.resolve(`./assets/${segment}`);
+      res.sendFile(resolvedPath);
+    } catch (error) {
+      res.status(400).json({ error });
+    }
+  },
+  bandwidth: (req, res, next) => { 
+    try {
+      const { resolution } = req.params;
+      console.log(req.params)
+      const resolvedPath = path.resolve(`./assets/${resolution}`);
       res.sendFile(resolvedPath);
     } catch (error) {
       res.status(400).json({ error });
